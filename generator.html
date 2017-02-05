@@ -1,6 +1,5 @@
 <!doctype html>
 <head>
-	<link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
 	<script>
 		function generate(){
 			var min = document.getElementById('min').value;
@@ -9,35 +8,50 @@
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById('passwordTable').innerHTML = "";
-					
 					var file = this.responseText;
 
 					var words = file.split('\n');
-					var symbols = ["0","1","2","3","4","5","6","7","8","9","!","@","#","$","%","&","*","_","-","+","=",",","."];
+					var symbols = ["0","1","2","3","4","5","6","7","8","9","!","@","#","$","%","&","*","_","-","+","=","."];
 
-					var html = '<table><thead><tr><th>#</th><th>password</th></tr></thead><tbody id="tBody">'
+					table = document.getElementById('passwordTable');
+					if (document.getElementById('tbody') != null){
+						table.removeChild( document.getElementById('tbody') );
+					} 
+
+					var tbody = document.createElement('tbody');
+					tbody.id = "tbody"
 
 					for (i = 0; i < num; i++) {
-						
-						html += "<tr><td>"+(i+1)+"</td>";
-						html += "<td>";
+						tr = document.createElement('tr');
+						var td = document.createElement('td');
+						td.innerHTML = i+1;
+						td.style.padding = "7px";
+						tr.appendChild(td);
 
 						var password = "";
 						password += words[Math.floor(Math.random()*words.length)].trim();
-						
+
 						while (password.length < min) {
 							password += symbols[Math.floor(Math.random()*symbols.length)];
 							password += words[Math.floor(Math.random()*words.length)].trim();
 						}
 
-						html += password+"</td>";
+						var count = Math.floor( Math.random()*(password.length/3) );
+						for (var j = 0; j < count; j++) {
+							var pos = Math.floor(Math.random()*password.length);
+							password = password.substr(0,pos)+password[pos].toUpperCase()+password.substr(pos+1);
+						}
+
+						td = document.createElement('td');
+						td.innerHTML = password;
+						tr.appendChild(td);
+						tbody.appendChild(tr);
+						
 					}
-					html += "</tbody></table>"
-					document.getElementById('passwordTable').innerHTML = html;
+					table.appendChild(tbody);
 				}
 			}
-			xhr.open('GET','words.txt',true);
+			xhr.open('GET','../password-generator/words.txt',true);
 			xhr.send();
 		}
 	</script>
@@ -47,4 +61,5 @@
 	Min Length: <input id="min" type="text" value="0"><br>
 	<button onclick="generate()">Submit</button>
 	<div id="passwordTable"></div>	
+	<table id="passwordTable"></table>
 </html>
