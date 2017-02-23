@@ -2,18 +2,18 @@
 <head>
 	<style type="text/css" media="all">
 		td, th {
-			border: 2px solid #CCC;
+			border: 1px solid black;
 		}
-
 		tr:nth-child(even) {
-			background: #CCC;
+			background: #f1f1f1;
 		}
 		th {
-			background: #CCC;
+			background: #d3d3d3;
 		}
 		table {
 			border-collapse: collapse;
-			border:1px solid #CCC;
+			border:1px solid black;
+			min-width:700px;
 		}
 	</style>
 
@@ -32,6 +32,7 @@
 			}
 			table {
 				table-layout: fixed;
+				width:100%;
 			}
 			#params {
 				display:none;
@@ -107,6 +108,10 @@
 	</div>
 	<!-- <div id="passwordTable"></div>	 -->
 	<table id="passwordTable">
+		<col width="20px">
+		<col width="auto">
+		<col width="25%">
+		<col width="25%">
 		<thead>
 			<tr>
 				<th>#</th>
