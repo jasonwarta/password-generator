@@ -1,5 +1,43 @@
 <!doctype html>
 <head>
+	<style type="text/css" media="all">
+		td, th {
+			border: 2px solid #CCC;
+		}
+
+		tr:nth-child(even) {
+			background: #CCC;
+		}
+		th {
+			background: #CCC;
+		}
+		table {
+			border-collapse: collapse;
+			border:1px solid #CCC;
+		}
+	</style>
+
+	<style type="text/css" media="print">
+		table {
+				page-break-inside: avoid;
+			}
+			th {
+				background: #CCC;
+			}
+			tr:nth-child(even) {
+				background: #CCC;
+			}
+			tr,th,td {
+				height:26px;
+			}
+			table {
+				table-layout: fixed;
+			}
+			#params {
+				display:none;
+			}
+	</style>
+
 	<script>
 		function generate(){
 			var min = document.getElementById('min').value;
@@ -14,6 +52,7 @@
 					var symbols = ["0","1","2","3","4","5","6","7","8","9","!","@","#","$","%","&","*","_","-","+","=","."];
 
 					table = document.getElementById('passwordTable');
+
 					if (document.getElementById('tbody') != null){
 						table.removeChild( document.getElementById('tbody') );
 					} 
@@ -45,6 +84,10 @@
 						td = document.createElement('td');
 						td.innerHTML = password;
 						tr.appendChild(td);
+						td = document.createElement('td');
+						tr.appendChild(td);
+						td = document.createElement('td');
+						tr.appendChild(td);
 						tbody.appendChild(tr);
 						
 					}
@@ -56,10 +99,21 @@
 		}
 	</script>
 </head>
-<html>
-	Number of passwords: <input type="text" id="listSize" value="0"><br>
-	Min Length: <input id="min" type="text" value="0"><br>
-	<button onclick="generate()">Submit</button>
-	<div id="passwordTable"></div>	
-	<table id="passwordTable"></table>
+<html moznomarginboxes mozdisallowselectionprint>
+	<div id="params">
+		Number of passwords: <input type="text" id="listSize" value="0"><br>
+		Min Length: <input id="min" type="text" value="0"><br>
+		<button onclick="generate()">Generate</button>
+	</div>
+	<!-- <div id="passwordTable"></div>	 -->
+	<table id="passwordTable">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>password</th>
+				<th>username</th>
+				<th>service</th>
+			</tr>
+		</thead>
+	</table>
 </html>
