@@ -3,6 +3,7 @@
 	<style type="text/css" media="all">
 		td, th {
 			border: 1px solid black;
+			padding-left:4px;
 		}
 		tr:nth-child(even) {
 			background: #f1f1f1;
@@ -19,24 +20,23 @@
 
 	<style type="text/css" media="print">
 		table {
-				page-break-inside: avoid;
-			}
-			th {
-				background: #CCC;
-			}
-			tr:nth-child(even) {
-				background: #CCC;
-			}
-			tr,th,td {
-				height:26px;
-			}
-			table {
-				table-layout: fixed;
-				width:100%;
-			}
-			#params {
-				display:none;
-			}
+			page-break-inside: avoid;
+		}
+		tr,th,td {
+			height:31px;
+		}
+		table {
+			table-layout: fixed;
+			width:100%;
+		}
+		#params {
+			display:none;
+		}
+		@page:left{
+  			@bottom-left {
+    			content: "Page " counter(page) " of " counter(pages);
+  			}
+		}
 	</style>
 
 	<script>
@@ -102,13 +102,12 @@
 </head>
 <html moznomarginboxes mozdisallowselectionprint>
 	<div id="params">
-		Number of passwords: <input type="text" id="listSize" value="0"><br>
-		Min Length: <input id="min" type="text" value="0"><br>
+		Number of passwords: <input type="text" id="listSize" value="120"><br>
+		Min Length: <input id="min" type="text" value="30"><br>
 		<button onclick="generate()">Generate</button>
 	</div>
-	<!-- <div id="passwordTable"></div>	 -->
 	<table id="passwordTable">
-		<col width="20px">
+		<col width="6%">
 		<col width="auto">
 		<col width="25%">
 		<col width="25%">
