@@ -53,7 +53,7 @@
 					var file = this.responseText;
 
 					var words = file.split('\n');
-					var symbols = ["0","1","2","3","4","5","6","7","8","9","!","@","#","$","%","&","*","_","-","+","=","."];
+					var symbols = ["0","1","2","3","4","5","6","7","8","9",".","!","@","&","*"];
 
 					table = document.getElementById('passwordTable');
 
@@ -79,11 +79,11 @@
 							password += words[Math.floor(Math.random()*words.length)].trim();
 						}
 
-						var count = Math.floor( Math.random()*(password.length/3) );
-						for (var j = 0; j < count; j++) {
-							var pos = Math.floor(Math.random()*password.length);
-							password = password.substr(0,pos)+password[pos].toUpperCase()+password.substr(pos+1);
-						}
+						// var count = Math.floor( Math.random()*(password.length/3) );
+						// for (var j = 0; j < count; j++) {
+						// 	var pos = Math.floor(Math.random()*password.length);
+						// 	password = password.substr(0,pos)+password[pos].toUpperCase()+password.substr(pos+1);
+						// }
 
 						td = document.createElement('td');
 						td.innerHTML = password;
