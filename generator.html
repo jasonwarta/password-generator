@@ -43,70 +43,83 @@
 	</style>
 
 	<script>
-		function generate(){
-			var min = document.getElementById('min').value;
-			var num = document.getElementById('listSize').value;
 
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var file = this.responseText;
-
-					var words = file.split('\n');
-					var symbols = ["0","1","2","3","4","5","6","7","8","9",".","!","@","&","*"];
-
-					table = document.getElementById('passwordTable');
-
-					if (document.getElementById('tbody') != null){
-						table.removeChild( document.getElementById('tbody') );
-					} 
-
-					var tbody = document.createElement('tbody');
-					tbody.id = "tbody"
-
-					for (i = 0; i < num; i++) {
-						tr = document.createElement('tr');
-						var td = document.createElement('td');
-						td.innerHTML = i+1;
-						td.style.padding = "7px";
-						tr.appendChild(td);
-
-						var password = "";
-						password += words[Math.floor(Math.random()*words.length)].trim();
-
-						while (password.length < min) {
-							password += symbols[Math.floor(Math.random()*symbols.length)];
-							password += words[Math.floor(Math.random()*words.length)].trim();
-						}
-
-						// var count = Math.floor( Math.random()*(password.length/3) );
-						// for (var j = 0; j < count; j++) {
-						// 	var pos = Math.floor(Math.random()*password.length);
-						// 	password = password.substr(0,pos)+password[pos].toUpperCase()+password.substr(pos+1);
-						// }
-
-						td = document.createElement('td');
-						td.innerHTML = password;
-						tr.appendChild(td);
-						td = document.createElement('td');
-						tr.appendChild(td);
-						td = document.createElement('td');
-						tr.appendChild(td);
-						tbody.appendChild(tr);
-						
-					}
-					table.appendChild(tbody);
-				}
-			}
-			xhr.open('GET','../password-generator/words.txt',true);
-			xhr.send();
+	function getWord(words,length){
+		word = words[Math.floor(Math.random()*words.length)].trim();
+		while(word.length != 6){
+			word = words[Math.floor(Math.random()*words.length)].trim();
 		}
+		return word;
+	}
+
+	function generate(){
+		var min = document.getElementById('min').value;
+		var num = document.getElementById('listSize').value;
+
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var file = this.responseText;
+
+				var words = file.split('\n');
+				var symbols = ["0","1","2","3","4","5","6","7","8","9",".","!","@","&","*"];
+
+				table = document.getElementById('passwordTable');
+
+				if (document.getElementById('tbody') != null){
+					table.removeChild( document.getElementById('tbody') );
+				} 
+
+				var tbody = document.createElement('tbody');
+				tbody.id = "tbody"
+
+				for (i = 0; i < num; i++) {
+					tr = document.createElement('tr');
+					var td = document.createElement('td');
+					td.innerHTML = i+1;
+					td.style.padding = "7px";
+					tr.appendChild(td);
+
+					// var password = "";
+					// password += words[Math.floor(Math.random()*words.length)].trim();
+
+					// while (password.length < min) {
+					// 	password += symbols[Math.floor(Math.random()*symbols.length)];
+					// 	password += words[Math.floor(Math.random()*words.length)].trim();
+					// }
+					
+					// ccdc specific password generation
+					var password = "";
+					password += getWord(words,6);
+					password += symbols[Math.floor(Math.random()*symbols.length)];
+					password += getWord(words,7);
+					password += symbols[Math.floor(Math.random()*symbols.length)];
+					password += getWord(words,6);
+					// end ccdc-specific password generation
+
+					td = document.createElement('td');
+					td.innerHTML = password;
+					tr.appendChild(td);
+					td = document.createElement('td');
+					tr.appendChild(td);
+					td = document.createElement('td');
+					tr.appendChild(td);
+					tbody.appendChild(tr);
+					
+				}
+				table.appendChild(tbody);
+			}
+		}
+		xhr.open('GET','../password-generator/6-7-words.txt',true);
+		xhr.send();
+	}
 	</script>
 </head>
 <html moznomarginboxes mozdisallowselectionprint>
 	<div id="params">
 		Number of passwords: <input type="text" id="listSize" value="120"><br>
-		Min Length: <input id="min" type="text" value="30"><br>
+		<!-- Min Length: <input id="min" type="text" value="21"> -->
+		<!-- Max Length: <input id="max" type="text" value="21"> <br> -->
 		<button onclick="generate()">Generate</button>
 	</div>
 	<table id="passwordTable">
