@@ -19,6 +19,9 @@
 		tbody {
 			font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
 		}
+		#symbols {
+			width:400px;
+		}
 	</style>
 
 	<style type="text/css" media="print">
@@ -52,6 +55,10 @@
 		return word;
 	}
 
+	function getSymbols(){
+
+	}
+
 	function generate(){
 		// var min = document.getElementById('min').value;
 		var num = document.getElementById('listSize').value;
@@ -62,7 +69,8 @@
 				var file = this.responseText;
 
 				var words = file.split('\n');
-				var symbols = ['.','@','#','$','%','&','!','?',':','*','^','_','-','+','=','~']
+				var symbols = document.getElementById('symbols').value.split('');
+				// var symbols = ['.','@','#','$','%','&','!','?',':','*','^','_','-','+','=','~']
 				// var symbols = ["0","1","2","3","4","5","6","7","8","9",".","!","@","&","*"];
 
 				table = document.getElementById('passwordTable');
@@ -119,9 +127,12 @@
 <html moznomarginboxes mozdisallowselectionprint>
 	<div id="params">
 		Number of passwords: <input type="text" id="listSize" value="120"><br>
-		<!-- Min Length: <input id="min" type="text" value="21"> -->
-		<!-- Max Length: <input id="max" type="text" value="21"> <br> -->
 		<button onclick="generate()">Generate</button>
+		<div>
+			<label>
+				Symbols <input type="text" id="symbols" value=".@#$%&!?:*^_-+=~">
+			</label>
+		</div>
 	</div>
 	<table id="passwordTable">
 		<col width="6%">
