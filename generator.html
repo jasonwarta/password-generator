@@ -20,7 +20,7 @@
 			font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
 		}
 		#symbols {
-			width:400px;
+			width:250px;
 		}
 	</style>
 
@@ -119,19 +119,23 @@
 				table.appendChild(tbody);
 			}
 		}
-		xhr.open('GET','../password-generator/6-7-words.txt',true);
+		xhr.open('GET','../passgen/6-7-words.txt',true);
 		xhr.send();
 	}
 	</script>
 </head>
 <html moznomarginboxes mozdisallowselectionprint>
 	<div id="params">
-		Number of passwords: <input type="text" id="listSize" value="120"><br>
-		<button onclick="generate()">Generate</button>
+		<div>
+			Number of passwords: <input type="text" id="listSize" value="120">
+		</div>
 		<div>
 			<label>
 				Symbols <input type="text" id="symbols" value=".@#$%&!?:*^_-+=~">
 			</label>
+		</div>
+		<div>
+			<button onclick="generate()">Generate</button>
 		</div>
 	</div>
 	<table id="passwordTable">
